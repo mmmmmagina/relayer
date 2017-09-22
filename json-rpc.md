@@ -34,8 +34,8 @@ Websocket : wss://relay.loopring.org/ws
 * [loopring_getCandleTicks](#loopring_getcandleticks)
 
 ## Websocket APIs
-* [loopring_subscribeDepth](#loopring_subDepth)
-* [loopring_subscribeCandleTick](#loopring_subscribeCandleTick)
+* [loopring_subscribeDepth](#loopring_subdepth)
+* [loopring_subscribeCandleTick](#loopring_subscribecandletick)
 
 
 ## JSON RPC API Reference
