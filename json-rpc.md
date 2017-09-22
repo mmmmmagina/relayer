@@ -6,8 +6,6 @@ This document contains the following sections:
 - Endport
 - JSON-RPC Methods
 - Websocket API
-- Common Define(object, enum, etc..)
-- Error Code
 
 ## Endport
 ```
@@ -36,7 +34,8 @@ Websocket : wss://relay.loopring.org/ws
 * [loopring_getCandleTicks](#loopring_getCandleTicks)
 
 ## Websocket APIs
-
+* [loopring_subscribeDepth](#loopring_subDepth)
+* [loopring_subscribeCandleTick](#loopring_subscribeCandleTick)
 
 
 ## JSON RPC API Reference
@@ -581,3 +580,92 @@ curl -X GET --data '{"jsonrpc":"2.0","method":"loopring_getCandleTicks","params"
 ```
 
 ***
+
+## Websocket API Reference
+
+***
+
+#### loopring_subscribeDepth
+
+subscribe depth data with websocket. after connected, client sends this message to server side.
+
+##### Parameters
+
+`JSON Object`
+- `sub` - subscribe key. `market.depth.$tokenS.$tokenB`, tokenS and tokenB must be filled in lowercase.
+- `id` - An identifier established by the client that MUST contain a number(same to json-rpc).
+
+```js
+{
+  "sub": "market.depth.eth.lrc",
+  "id": 64
+}
+```
+
+##### Returns
+
+`JSON Object`
+- `sub` - subscribe key. `market.depth.$tokenS.$tokenB`, tokenS and tokenB must be filled in lowercase.
+- `id` - An identifier established by the client that MUST contain a number(same to json-rpc).
+
+##### Example
+```js
+// Send message
+{
+  "sub": "market.depth.eth.lrc",
+  "id": 64
+}
+
+// Result
+{
+  "id": "64",
+  "result": "SUB_SUCCESS",
+  "message" : "" // if sub failed, this param contain error message.
+}
+```
+
+***
+
+***
+
+#### loopring_subscribeCandleTick
+
+subscribe candle tick data with websocket. after connected, client sends this message to server side. 
+
+##### Parameters
+
+`JSON Object`
+- `sub` - subscribe key. `market.candle.$tokenS.$tokenB`, tokenS and tokenB must be filled in lowercase.
+- `id` - An identifier established by the client that MUST contain a number(same to json-rpc).
+
+```js
+{
+  "sub": "market.candle.eth.lrc",
+  "id": 64
+}
+```
+
+##### Returns
+
+`JSON Object`
+- `sub` - subscribe key. `market.candle.$tokenS.$tokenB`, tokenS and tokenB must be filled in lowercase.
+- `id` - An identifier established by the client that MUST contain a number(same to json-rpc).
+
+##### Example
+```js
+// Send message
+{
+  "sub": "market.candle.eth.lrc",
+  "id": 64
+}
+
+// Result
+{
+  "id": "64",
+  "result": "SUB_SUCCESS",
+  "message" : "" // if sub failed, this param contain error message.
+}
+```
+
+***
+
