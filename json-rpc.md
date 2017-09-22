@@ -1,20 +1,20 @@
 
 # RELAYER API (JSON-RPC & WEBSOCKET)
+`LOOPRING RELAYER` is a relay helping to communicate with eth network and apply curd operations for the loopring order. This document define the json-rpc & websocket api for communicating with replay backend.
 
-[JSON](http://json.org/) is a lightweight data-interchange format. It can represent numbers, strings, ordered sequences of values, and collections of name/value pairs.
-
-[JSON-RPC](http://www.jsonrpc.org/specification) is a stateless, light-weight remote procedure call (RPC) protocol. Primarily this specification defines several data structures and the rules around their processing. It is transport agnostic in that the concepts can be used within the same process, over sockets, over HTTP, or in many various message passing environments. It uses JSON ([RFC 4627](http://www.ietf.org/rfc/rfc4627.txt)) as data format.
-
-`LOOPRING RELAYER` is a relay helping to communicate with eth network and do curd operations for the loopring order. This document define the json-rpc & websocket api for communicating with replay backend.
-
-## USAGE
 This document contains the following sections:
 - Endport
 - JSON-RPC Methods
 - Websocket API
 - Common Define(object, enum, etc..)
 - Error Code
- 
+
+## Endport
+```
+JSON-RPC  : http://relay.loopring.org
+Websocket : wss://relay.loopring.org/ws
+```
+
 ## JSON-RPC Methods 
 
 * [eth_gasPrice](https://github.com/ethereum/wiki/wiki/JSON-RPC#eth_gasprice)
@@ -34,6 +34,9 @@ This document contains the following sections:
 * [loopring_ticker](#loopring_ticker)
 * [loopring_getDealHistory](#loopring_getDealHistory)
 * [loopring_getCandleTicks](#loopring_getCandleTicks)
+
+## Websocket APIs
+
 
 
 ## JSON RPC API Reference
@@ -140,7 +143,7 @@ Cancel loopring order.
 
 ##### Parameters
 
-`Object` - include order hash and signature params
+`JSON Object` - include order hash and signature params
   - `orderHash` - The order hash.
   - `v` - ECDSA signature parameter v.
   - `r` - ECDSA signature parameter r.
