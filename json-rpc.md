@@ -1,16 +1,23 @@
 
-# RELAYER API (JSON-RPC & WEBSOCKET)
-`LOOPRING RELAYER` is a relay helping to communicate with eth network and apply curd operations for the loopring order. This document define the json-rpc & websocket api for communicating with replay backend.
+# Relayer API Spec
+
+Loopring Relayers are nodes that act as a bridge between Ethereum nodes and Loopring compatible wallets. A relayer maintain global order-books for all trading pairs and is resposible for broadcasting orders selfishlessly to selected peer-to-peer networks. 
+
+Wallets can host their own relayer nodes to facility trading using Loopring, but can also take advantage of public relayers provided by Loopring foundation or other third-parties. Order-book visulzation services or order browsers can also set up their own relayer nodes to dispaly Loopring order-books to their users -- in such a senario, wallet-facing APIs can be disabled so the relayer will run in a read-only mode. 
+
+This document describes relay's public APIs (JSON_RPC and WebSocket), but doesn't articulate how order-books nor trading history are maintained.
+
 
 This document contains the following sections:
 - Endport
 - JSON-RPC Methods
 - Websocket API
 
+
 ## Endport
 ```
-JSON-RPC  : http://relay.loopring.org
-Websocket : wss://relay.loopring.org/ws
+JSON-RPC  : http://{hostname}:{port}/rpc
+Websocket : wss://{hostname}:{port}/ws
 ```
 
 ## JSON-RPC Methods 
@@ -24,6 +31,7 @@ Websocket : wss://relay.loopring.org/ws
 * [eth_estimateGas](https://github.com/ethereum/wiki/wiki/JSON-RPC#eth_estimategas)
 * [eth_getTransactionByHash](https://github.com/ethereum/wiki/wiki/JSON-RPC#eth_getTransactionByHash)
 * [eth_setTokenAllowance](#eth_settokenallowance)
+
 * [loopring_submitOrder](#loopring_submitorder)
 * [loopring_cancelOrder](#loopring_cancelorder)
 * [loopring_getOrderByHash](#loopring_getorderbyhash)
@@ -668,4 +676,3 @@ subscribe candle tick data with websocket. after connected, client sends this me
 ```
 
 ***
-
