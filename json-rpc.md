@@ -30,7 +30,7 @@ The relayer supports the following JSON-RPC as well as all Ethereum standard JSO
 * [loopring_getOrdersByAddress](#loopring_getordersbyaddress)
 * [loopring_getDepth](#loopring_getdepth)
 * [loopring_getTicker](#loopring_ticker)
-* [loopring_getDealHistory](#loopring_getdealhistory)
+* [loopring_getFills](#loopring_getfills)
 * [loopring_getCandleTicks](#loopring_getcandleticks)
 *  TODO(wuxiaolu): loopring_getRingsMined
 
@@ -425,7 +425,7 @@ curl -X GET --data '{"jsonrpc":"2.0","method":"loopring_ticker","params":{see ab
 
 ***
 
-#### loopring_getDealHistory
+#### loopring_getFills
 
 Get 24hr merged ticker info from loopring relayer.
 
@@ -463,7 +463,7 @@ params: {
 ##### Example
 ```js
 // Request
-curl -X GET --data '{"jsonrpc":"2.0","method":"loopring_getDealHistory","params":{see above},"id":64}'
+curl -X GET --data '{"jsonrpc":"2.0","method":"loopring_getFills","params":{see above},"id":64}'
 
 // Result
 {
