@@ -22,15 +22,7 @@ Websocket : wss://{hostname}:{port}/ws
 
 ## JSON-RPC Methods 
 
-* [eth_gasPrice](https://github.com/ethereum/wiki/wiki/JSON-RPC#eth_gasprice)
-* [eth_blockNumber](https://github.com/ethereum/wiki/wiki/JSON-RPC#eth_blocknumber)
-* [eth_getBalance](https://github.com/ethereum/wiki/wiki/JSON-RPC#eth_getbalance)
-* [eth_getTransactionCount](https://github.com/ethereum/wiki/wiki/JSON-RPC#eth_gettransactioncount)
-* [eth_sendRawTransaction](https://github.com/ethereum/wiki/wiki/JSON-RPC#eth_sendrawtransaction)
-* [eth_call](https://github.com/ethereum/wiki/wiki/JSON-RPC#eth_call)
-* [eth_estimateGas](https://github.com/ethereum/wiki/wiki/JSON-RPC#eth_estimategas)
-* [eth_getTransactionByHash](https://github.com/ethereum/wiki/wiki/JSON-RPC#eth_getTransactionByHash)
-* [eth_setTokenAllowance](#eth_settokenallowance)
+The relay supports the following JSON-RPC as well as all Ethereum standard JSON-PRCs.
 
 * [loopring_submitOrder](#loopring_submitorder)
 * [loopring_cancelOrder](#loopring_cancelorder)
