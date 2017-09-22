@@ -32,6 +32,7 @@ The relayer supports the following JSON-RPC as well as all Ethereum standard JSO
 * [loopring_getTicker](#loopring_ticker)
 * [loopring_getDealHistory](#loopring_getdealhistory)
 * [loopring_getCandleTicks](#loopring_getcandleticks)
+*  TODO(wuxiaolu): loopring_getRingsMined
 
 ## Websocket APIs
 * [loopring_subscribeDepth](#loopring_subdepth)
