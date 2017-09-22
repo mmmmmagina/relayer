@@ -50,8 +50,8 @@ This method extendes method `approve` in `ERC20` contract to support changing am
 
 ##### Parameters
 
-1. `String` `Required` - The first raw transaction.
-2. `String` `Optional` - The second raw transaction. if you want changing allowance in this conditon: `a -> b where a > 0 and b > 0`, this param must be applied.
+1. `String` - The first raw transaction.
+2. `String` - The second raw transaction. if you want changing allowance in this conditon: `a -> b where a > 0 and b > 0`, this param must be applied.
 
 ```js
 params: [
@@ -85,7 +85,7 @@ Submit loopring order.
 
 ##### Parameters
 
-`Object` - The order object(refer to [LoopringProtocol](https://github.com/Loopring/protocol/blob/master/contracts/LoopringProtocol.sol))
+`JSON Object` - The order object(refer to [LoopringProtocol](https://github.com/Loopring/protocol/blob/master/contracts/LoopringProtocol.sol))
   - `address` - Order submit address
   - `tokenS` - Token to sell.
   - `tokenB` - Token to buy.
@@ -191,7 +191,7 @@ params: ["0x47173285a8d7341e5e972fc677286384f802f8ef42a5ec5f03bbfa254cb01fad"]
 
 ##### Returns
 
-1. `orginalOrder` `<span style="color:blue">Object</span>` - The original order info when submitting.(refer to [LoopringProtocol](https://github.com/Loopring/protocol/blob/master/contracts/LoopringProtocol.sol))
+1. `JSON Object` - The original order info when submitting.(refer to [LoopringProtocol](https://github.com/Loopring/protocol/blob/master/contracts/LoopringProtocol.sol))
   - `address` - Order submit address
   - `tokenS` - Token to sell.
   - `tokenB` - Token to buy.
@@ -205,12 +205,12 @@ params: ["0x47173285a8d7341e5e972fc677286384f802f8ef42a5ec5f03bbfa254cb01fad"]
   - `v` - ECDSA signature parameter v.
   - `r` - ECDSA signature parameter r.
   - `s` - ECDSA signature parameter s.
-  - `timestamp` - The submit TimeStamp.
+  - `ts` - The submit TimeStamp.
 
 2. `status` `STRING` - Order status. refer to `Order Status Set` (include Pending, PartiallyExecuted, FullyExecuted, Cancelled)
-3. `totalDealedAmountS` `NUMBER` - The total amount of TokenS that have been selled. 
-4. `totalDealedAmountB` `NUMBER` - The total amount of TokenB that have been buyed.
-5. `matchList` `ARRAY` -  The match records related to this order.
+3. `totalDealedAmountS` - The total amount of TokenS that have been selled. 
+4. `totalDealedAmountB` - The total amount of TokenB that have been buyed.
+5. `matchList` -  The match records related to this order.
 
 ##### Example
 ```js
@@ -235,7 +235,8 @@ curl -X POST --data '{"jsonrpc":"2.0","method":"loopring_getOrderByHash","params
       "savingSharePercentage" : 50, // 0~100
       "v" : 112,
       "r" : "239dskjfsn23ck34323434md93jchek3",
-      "s" : "dsfsdf234ccvcbdsfsdf23438cjdkldy"
+      "s" : "dsfsdf234ccvcbdsfsdf23438cjdkldy",
+      "ts" : 1506014710000
     },
     "status" : "PartiallyExecuted",
     "totalDealedAmountS" : 30,
@@ -246,13 +247,13 @@ curl -X POST --data '{"jsonrpc":"2.0","method":"loopring_getOrderByHash","params
       "pageSize" : 20
       "data" : [
         {
-          "timestamp" : "1506014710000",
+          "ts" : "1506014710000",
           "amountS" : 30.31,
           "amountB" : 3934.111,
           "txHash" : "0x1eb8d538bb9727028912f57c54776d90c1927e3b49f34a2e53e9271949ec044c"
         },
         {
-          "timestamp" : "1506014710323",
+          "ts" : "1506014710323",
           "amountS" : 30.31,
           "amountB" : 3934.111,
           "txHash" : "0x1eb8d538bb9727028912f57c54776d90c1927e3b49f34a2e53e9271949ec044c"
@@ -264,7 +265,6 @@ curl -X POST --data '{"jsonrpc":"2.0","method":"loopring_getOrderByHash","params
 ```
 
 ***
-
 
 #### loopring_getOrdersByAddress
 
@@ -296,11 +296,11 @@ params: ["0x847983c3a34afa192cfee860698584c030f4c9db1"]
   - `v` - ECDSA signature parameter v.
   - `r` - ECDSA signature parameter r.
   - `s` - ECDSA signature parameter s.
-  - `timestamp` - The submit TimeStamp.
+  - `ts` - The submit TimeStamp.
 
-2. `total` `NUMBER` - Total amount of orders.
-3. `pageIndex` `NUMBER` - Index of page.
-4. `pageSize` `NUMBER` - Amount per page.
+2. `total` - Total amount of orders.
+3. `pageIndex` - Index of page.
+4. `pageSize` - Amount per page.
 
 ##### Example
 ```js
@@ -337,13 +337,13 @@ curl -X POST --data '{"jsonrpc":"2.0","method":"loopring_getOrderByHash","params
         "pageSize" : 20
         "data" : [
           {
-            "timestamp" : "1506014710000",
+            "ts" : "1506014710000",
             "amountS" : 30.31,
             "amountB" : 3934.111,
             "txHash" : "0x1eb8d538bb9727028912f57c54776d90c1927e3b49f34a2e53e9271949ec044c"
           },
           {
-            "timestamp" : "1506014710323",
+            "ts" : "1506014710323",
             "amountS" : 30.31,
             "amountB" : 3934.111,
             "txHash" : "0x1eb8d538bb9727028912f57c54776d90c1927e3b49f34a2e53e9271949ec044c"
@@ -367,9 +367,9 @@ Get depth and accuracy by token pair
 
 ##### Parameters
 
-1. `from` `String` - The token to sell
-2. `to` `String` - The token to buy
-3. `length` `NUMBER` - The length of the depth data. defalut is 50.
+1. `from` - The token to sell
+2. `to` - The token to buy
+3. `length` - The length of the depth data. defalut is 50.
 
 
 ```js
@@ -383,7 +383,7 @@ params: {
 ##### Returns
 
 1. `depth` - The depth data.
-2. `accuracies` `ARRAY OF NUMBER` - The accuracies.
+2. `accuracies` - The accuracies, it's a array of number.
 
 ##### Example
 ```js
@@ -417,8 +417,8 @@ Get 24hr merged ticker info from loopring relayer.
 
 ##### Parameters
 
-1. `from` `String` - The token to sell
-2. `to` `String` - The token to buy
+1. `from` - The token to sell
+2. `to` - The token to buy
 
 ```js
 params: {
@@ -466,8 +466,8 @@ Get 24hr merged ticker info from loopring relayer.
 
 ##### Parameters
 
-1. `from` `String` - The token to sell
-2. `to` `String` - The token to buy
+1. `from` - The token to sell
+2. `to` - The token to buy
 3. `address`
 4. `pageIndex`
 5. `pageSize`
@@ -484,7 +484,7 @@ params: {
 
 ##### Returns
 
-`PAGERESULT of OBJECT`
+`PAGE RESULT of OBJECT`
 1. `ARRAY OF DATA` - The match histories.
   - `txHash` - The transaction hash of the match.
   - `dealAmountS` - Amount of sell.
@@ -528,8 +528,8 @@ Get tick infos for kline.
 
 ##### Parameters
 
-1. `from` `String` - The token to sell
-2. `to` `String` - The token to buy
+1. `from` - The token to sell
+2. `to` - The token to buy
 3. `interval` - The interval of kline. enum like: 1m, 5m, 6h, 1d....
 4. `size` - The data size.
 
@@ -545,7 +545,7 @@ params: {
 
 ##### Returns
 
-`ARRAY OF DATA`
+`ARRAY of JSON OBJECT`
   - `dealAmountS` - Total amount of sell.
   - `dealAmountB` - Total amount of buy.
   - `ts` - The timestamp of matching time.
