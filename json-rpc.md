@@ -53,7 +53,7 @@ Websocket : wss://{hostname}:{port}/ws
 
 #### loopring_submitOrder
 
-Submit loopring order.
+Submit an order. The order is submitted to relayer as a JSON object, this JSON will be broadcasted into peer-to-peer network for off-chain order-book maintainance and ring-ming. Once mined, the ring will be serialized into a transaction and submitted to Ethereum blockchain.
 
 ##### Parameters
 
@@ -111,7 +111,7 @@ curl -X POST --data '{"jsonrpc":"2.0","method":"loopring_submitOrder","params":{
 
 #### loopring_cancelOrder
 
-Cancel loopring order.
+Cancel an order.
 
 ##### Parameters
 
@@ -151,7 +151,7 @@ curl -X POST --data '{"jsonrpc":"2.0","method":"loopring_cancelOrder","params":{
 
 #### loopring_getOrderByHash
 
-Get loopring order detail info by order hash.
+Get order details info by order hash.
 
 ##### Parameters
 
