@@ -427,7 +427,7 @@ curl -X GET --data '{"jsonrpc":"2.0","method":"loopring_ticker","params":{see ab
 
 #### loopring_getFills
 
-Get 24hr merged ticker info from loopring relayer.
+Get order fill history. This hisotry consists of OrderFilled events.
 
 ##### Parameters
 
