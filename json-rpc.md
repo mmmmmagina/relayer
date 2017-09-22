@@ -22,7 +22,7 @@ Websocket : wss://{hostname}:{port}/ws
 
 ## JSON-RPC Methods 
 
-The relay supports the following JSON-RPC as well as all Ethereum standard JSON-PRCs.
+The relayer supports the following JSON-RPC as well as all Ethereum standard JSON-PRCs.
 
 * [loopring_submitOrder](#loopring_submitorder)
 * [loopring_cancelOrder](#loopring_cancelorder)
