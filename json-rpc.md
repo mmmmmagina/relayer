@@ -48,41 +48,6 @@ Websocket : wss://{hostname}:{port}/ws
 
 ## JSON RPC API Reference
 
-***
-
-#### eth_setTokenAllowance
-
-Change token allowance quantity. 
-This method extendes method `approve` in `ERC20` contract to support changing amount to positive integer while previous amount is also a positive integer.
-
-##### Parameters
-
-1. `String` - The first raw transaction.
-2. `String` - The second raw transaction. if you want changing allowance in this conditon: `a -> b where a > 0 and b > 0`, this param must be applied.
-
-```js
-params: [
-  "0xa3b225d374f2b47254eb970870f07244567435058bb8eb3ab970870f4d072445642e7522acdb429064", // required
-  "0xd46e8dd67c5d32be8d46e8dd67c5d32be8058bb8eb970870f072445675058bb8eb970870f072445675" // optional
-]
-```
-
-##### Returns
-
-`String` - content like `SUBMIT_SUCCESS` for async request.
-
-##### Example
-```js
-// Request
-curl -X POST --data '{"jsonrpc":"2.0","method":"eth_setTokenAllowance","params":["0xa3b225d374f2b47254eb970870f07244567435058bb8eb3ab970870f4d072445642e7522acdb429064", "0xd46e8dd67c5d32be8d46e8dd67c5d32be8058bb8eb970870f072445675058bb8eb970870f072445675"],"id":67}'
- 
-// Result
-{
-  "id":67,
-  "jsonrpc":"2.0",
-  "result": "SUBMIT_SUCCESS"
-}
-```
 
 ***
 
@@ -374,15 +339,15 @@ Get depth and accuracy by token pair
 
 ##### Parameters
 
-1. `from` - The token to sell
-2. `to` - The token to buy
+1. `tokenS` - The token to sell
+2. `tokenB` - The token to buy
 3. `length` - The length of the depth data. defalut is 50.
 
 
 ```js
 params: {
-  "from" : "Eth",
-  "to" : "Lrc",
+  "tokenS" : "Eth",
+  "tokenB" : "Lrc",
   "length" : 10 // defalut is 50
 }
 ```
@@ -424,8 +389,8 @@ Get 24hr merged ticker info from loopring relayer.
 
 ##### Parameters
 
-1. `from` - The token to sell
-2. `to` - The token to buy
+1. `tokenS` - The token to sell
+2. `tokenB` - The token to buy
 
 ```js
 params: {
@@ -473,16 +438,16 @@ Get 24hr merged ticker info from loopring relayer.
 
 ##### Parameters
 
-1. `from` - The token to sell
-2. `to` - The token to buy
+1. `tokenS` - The token to sell
+2. `tokenB` - The token to buy
 3. `address`
 4. `pageIndex`
 5. `pageSize`
 
 ```js
 params: {
-  "from" : "Eth",
-  "to" : "Lrc"
+  "tokenS" : "Eth",
+  "tokenB" : "Lrc"
   "address" : "0x8888f1f195afa192cfee860698584c030f4c9db1",
   "pageIndex" : 1,
   "pageSize" : 20 // max size is 50.
@@ -494,8 +459,8 @@ params: {
 `PAGE RESULT of OBJECT`
 1. `ARRAY OF DATA` - The match histories.
   - `txHash` - The transaction hash of the match.
-  - `dealAmountS` - Amount of sell.
-  - `dealAmountB` - Amount of buy.
+  - `fillAmountS` - Amount of sell.
+  - `fillAmountB` - Amount of buy.
   - `ts` - The timestamp of matching time.
   - `relatedOrderHash` - The order hash.
 2. `pageIndex`
@@ -515,8 +480,8 @@ curl -X GET --data '{"jsonrpc":"2.0","method":"loopring_getDealHistory","params"
     "data" : [
       {
         "txHash" : "0xb903239f8543d04b5dc1ba6579132b143087c68db1b2168786408fcbce568238",
-        "dealAmountS" : 20,
-        "dealAmountB" : 30.21,
+        "fillAmountS" : 20,
+        "fillAmountB" : 30.21,
         "ts" : 1506014710000
       }
     ],
@@ -535,8 +500,8 @@ Get tick infos for kline.
 
 ##### Parameters
 
-1. `from` - The token to sell
-2. `to` - The token to buy
+1. `tokenS` - The token to sell
+2. `tokenB` - The token to buy
 3. `interval` - The interval of kline. enum like: 1m, 5m, 6h, 1d....
 4. `size` - The data size.
 
@@ -553,8 +518,8 @@ params: {
 ##### Returns
 
 `ARRAY of JSON OBJECT`
-  - `dealAmountS` - Total amount of sell.
-  - `dealAmountB` - Total amount of buy.
+  - `fillAmountS` - Total amount of sell.
+  - `fillAmountB` - Total amount of buy.
   - `ts` - The timestamp of matching time.
   - `open` - The opening price.
   - `close` - The closing price.
@@ -574,8 +539,8 @@ curl -X GET --data '{"jsonrpc":"2.0","method":"loopring_getCandleTicks","params"
   "result": {
     "data" : [
       {
-        "dealAmountS" : 20,
-        "dealAmountB" : 30.21,
+        "fillAmountS" : 20,
+        "fillAmountB" : 30.21,
         "ts" : 1506014710000
         "open" : 3232.1,
         "close" : 2321,
