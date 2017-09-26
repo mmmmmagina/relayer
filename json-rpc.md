@@ -1,6 +1,6 @@
 
 # RELAYER API (JSON-RPC & WEBSOCKET)
-`LOOPRING RELAYER` is a relay helping to communicate with eth network and apply curd operations for the loopring order. This document define the json-rpc & websocket api for communicating with replay backend.
+`LOOPRING RELAYER` is a relay helping to communicate with eth network and apply curd operations for the loopring order. This document define the json-rpc & websocket api for communicating with relay backend.
 
 This document contains the following sections:
 - Endport
