@@ -7,7 +7,6 @@ Wallets can host their own relayer nodes to facility trading using Loopring, but
 
 This document describes relay's public APIs (JSON_RPC and WebSocket), but doesn't articulate how order-books nor trading history are maintained.
 
-
 This document contains the following sections:
 - Endport
 - JSON-RPC Methods
@@ -22,17 +21,15 @@ Websocket : wss://{hostname}:{port}/ws
 
 ## JSON-RPC Methods 
 
-The relayer supports the following JSON-RPC as well as all Ethereum standard JSON-PRCs.
-
+* The relayer supports the following JSON-RPC as well as all Ethereum standard JSON-PRCs, please refer to [eth JSON-RPC](https://github.com/ethereum/wiki/wiki/JSON-RPC)
 * [loopring_submitOrder](#loopring_submitorder)
 * [loopring_cancelOrder](#loopring_cancelorder)
-* [loopring_getOrderByHash](#loopring_getorderbyhash)
-* [loopring_getOrdersByAddress](#loopring_getordersbyaddress)
+* [loopring_getOrders](#loopring_getorders)
 * [loopring_getDepth](#loopring_getdepth)
 * [loopring_getTicker](#loopring_ticker)
 * [loopring_getFills](#loopring_getfills)
 * [loopring_getCandleTicks](#loopring_getcandleticks)
-*  TODO(wuxiaolu): loopring_getRingsMined
+* [loopring_getRingsMined](#loopring_getringsmined)
 
 ## Websocket APIs
 * [loopring_subscribeDepth](#loopring_subdepth)
@@ -231,16 +228,24 @@ curl -X POST --data '{"jsonrpc":"2.0","method":"loopring_getOrderByHash","params
 
 ***
 
-#### loopring_getOrdersByAddress
+#### loopring_getOrders
 
-Get loopring order list by address.
+Get loopring order list.
 
 ##### Parameters
 
-`String` - The address
+`address` - The address, if is null, will query all orders.
+`status` - selected by status.
+`pageIndex` - The page want to query, default is 1.
+`pageSize` - The size per page, default is 50.
 
 ```js
-params: ["0x847983c3a34afa192cfee860698584c030f4c9db1"]
+params: {
+  "address" : "0x847983c3a34afa192cfee860698584c030f4c9db1",
+  "status" : "Canceled",
+  "pageIndex" : 2,
+  "pageSize" : 40
+}
 ```
 
 ##### Returns
@@ -541,6 +546,75 @@ curl -X GET --data '{"jsonrpc":"2.0","method":"loopring_getCandleTicks","params"
         "low" : 1234.2
       }
     ]
+  }
+}
+```
+
+***
+
+#### loopring_getRingMined
+
+Get all mined rings.
+
+##### Parameters
+
+1. `ringHash` - The ring hash, if is null, will query all rings.
+2. `miner` - The miner that submit the ring.
+3. `pageIndex` - The page want to query, default is 1.
+4. `pageSize` - The size per page, default is 50.
+
+```js
+params: {
+  "ringHash" : "0xb903239f8543d04b5dc1ba6579132b143087c68db1b2168786408fcbce568238",
+  "miner" : "0x8888f1f195afa192cfee860698584c030f4c9db1"
+  "pageIndex" : 1,
+  "pageSize" : 20 // max size is 50.
+}
+```
+
+##### Returns
+
+1. `data` - The ring info.(refer to [Ring&RingMined](https://github.com/Loopring/protocol/blob/3bdc40c4f319e8fe70f58f82563db49579094b5c/contracts/LoopringProtocolImpl.sol#L109)
+  - `ringHash` - The ring hash.
+  - `miner` - The miner that submit match orders.
+  - `feeRecepient` - The fee recepient address.
+  - `orders` - The filled order list, the order struct refer to [OrderFilled](https://github.com/Loopring/protocol/blob/3bdc40c4f319e8fe70f58f82563db49579094b5c/contracts/LoopringProtocolImpl.sol#L117)
+2. `total` - Total amount of orders.
+3. `pageIndex` - Index of page.
+4. `pageSize` - Amount per page.
+
+##### Example
+```js
+// Request
+curl -X GET --data '{"jsonrpc":"2.0","method":"loopring_getCandleTicks","params":{see above},"id":64}'
+
+// Result
+{
+  "id":64,
+  "jsonrpc": "2.0",
+  "result": {
+     "data" : [
+       {
+        "ringhash" : "0xb903239f8543d04b5dc1ba6579132b143087c68db1b2168786408fcbce568238",
+        "miner" : "0x8888f1f195afa192cfee860698584c030f4c9db1",
+        "feeRecepient" : "0x8888f1f195afa192cfee860698584c030f4c9db1"
+        "orders" : [
+          {
+            "orderHash" : "0xb903239f8543d04b5dc1ba6579132b143087c68db1b2168786408fcbce568238",
+            "blockNumber" : 2345223,
+            "prevOrderHash" : "0xb903239f8543d04b5dc1ba6579132b143087c68db1b2168786408fcbce568238",
+            "nextOrderHash" : "0xb903239f8543d04b5dc1ba6579132b143087c68db1b2168786408fcbce568238",
+            "amountS" : 34.2,
+            "amountB" : 38.1,
+            "lrcReward" : 0.2,
+            "lrcFee" : 0.31
+          }
+        ]
+       }
+     ]
+     "total" : 12,
+     "pageIndex" : 1,
+     "pageSize" : 10
   }
 }
 ```
